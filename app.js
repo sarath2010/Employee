@@ -6,6 +6,8 @@ var Cors = require("cors");
 
 var app = new Express();
 
+const TestData=require("./model/Employee")
+
 app.listen(3000,()=>{
     console.log("Server is listening at 3000");
 })
