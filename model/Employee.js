@@ -7,5 +7,5 @@ const Schema=mongoose.Schema({
     salary:Number
 })
 
-const TestData=mongoose.model('empdata',Schema);
-module.exports=TestData;
+const EmployeeFile=mongoose.model('empdata',Schema);
+module.exports=EmployeeFile;
