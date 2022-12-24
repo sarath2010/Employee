@@ -5,6 +5,8 @@ var Mongoose = require("mongoose");
 var Cors = require("cors");
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(Bodyparser.json());
+app.use(Bodyparser.urlencoded({extended:false}));
 
 var app = new Express();
 
@@ -38,10 +40,18 @@ app.get("/api/employeelist",async(req,res)=>{
 
 //TODO: get single data from db  using api '/api/employeelist/:id'
 
-app.get("/api/employeelist/:id",async(req,res)=>{
-    const employee=await Employee.findOne();
-    res.send(employee);
-})
+app.post('/api/employeelist/:id',(req,res)=>{
+    var data=req.params.name;
+    Employee.find(
+        (err,data)=>{
+        if(err){
+            res.json({"status":"error","Error":err});
+        }
+        else{
+            res.json(data);
+        }
+    })
+    })
 
 
 //TODO: send data from db using api '/api/employeelist'
