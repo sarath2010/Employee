@@ -40,9 +40,9 @@ app.get("/api/employeelist",async(req,res)=>{
 
 //TODO: get single data from db  using api '/api/employeelist/:id'
 
-app.post('/api/employeelist/:id',(req,res)=>{
+app.get('/api/employeelist/:id',(req,res)=>{
     var data=req.params.name;
-    Employee.find(
+    Employee.findOne(
         (err,data)=>{
         if(err){
             res.json({"status":"error","Error":err});
@@ -57,7 +57,7 @@ app.post('/api/employeelist/:id',(req,res)=>{
 //TODO: send data from db using api '/api/employeelist'
 //Request body format:{name:'',location:'',position:'',salary:''}
 
-app.post("/api/employeelist",async(req,res)=>{
+app.post("/api/employeelist",(req,res)=>{
     var item = {
         name:req.body.name,
         location:req.body.location,
@@ -73,12 +73,37 @@ app.post("/api/employeelist",async(req,res)=>{
 
 //TODO: delete a employee data from db by using api '/api/employeelist/:id'
 
-
-
+app.delete('/api/employeelist/:id',(req,res)=>{
+    var name=req.params.name;
+    var data = req.body;
+    Employee.findOneAndDelete(
+    {"name":name},data,(err,data)=>{
+    if(err){
+        res.json({"status":"Error","Error":err});
+        }
+    else{
+        res.json({"Status":"Deleted","data":data});
+        }
+    })
+})
 
 
 //TODO: Update  a employee data from db by using api '/api/employeelist'
 //Request body format:{name:'',location:'',position:'',salary:''}
+
+app.update('/api/employeelist',(req,res)=>{
+    var name=req.body.name;
+    var data = req.body;
+    Employee.findOneAndUpdate(
+    {"name":name},data,(err,data)=>{
+    if(err){
+        res.json({"status":"Error","Error":err});
+        }
+    else{
+        res.json({"Status":"Deleted","data":data});
+        }
+    })
+})
 
 
 //! dont delete this code. it connects the front end file.
